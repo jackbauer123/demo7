@@ -14,9 +14,32 @@ spring:
     username: root
     password: 189@Yuanzhibin
     driver-class-name: com.mysql.cj.jdbc.Driver
+  sleuth:
+    trace-id128: true
+    sampler:
+      probability: 1.0
+  kafka:
+    bootstrap-servers: 10.168.1.248:9092
+  zipkin:
+#    base-url: http://10.168.1.248:9411/
+    sender:
+      type: kafka
+    kafka:
+      topic: zipkin
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8090/uaa/token_keys
 
 server:
   port: 8073
+
+logging:
+  pattern:
+    level: "[%X{traceId}/%X{spanId}] %-5p [%t] %C{2} - %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
+  level:
+    web: debug
 
 
 seata:
@@ -32,3 +55,7 @@ seata:
       server-addr: 10.168.1.248:8848
       group: SEATA_GROUP
       namespace: b60e1e77-d986-4d0e-919e-a8de3a5f034b
+feign:
+  oauth2:
+    enabled: true
+    load-balanced: true

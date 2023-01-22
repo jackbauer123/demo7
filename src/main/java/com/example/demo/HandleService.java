@@ -15,9 +15,9 @@ public class HandleService {
 
     @GlobalTransactional
     public void saveAll(){
-
-        demoClient.tccSave();
-        demoClient2.save();
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        demoClient.save();
+        //demoClient2.save();
     }
 
 

@@ -11,13 +11,16 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  * @author Greg Turnquist
  * @author Oliver Gierke
  */
-@FeignClient("service-provider")
+@FeignClient(name = "service-provider")
 public interface DemoClient {
 
 
-    @RequestMapping(value = "/demo/save", method = GET)
+    @RequestMapping(value = "/demo/saveall", method = GET)
     public String save();
 
-    @RequestMapping(value = "/demo/tccSave", method = GET)
-    public String tccSave();
+    @RequestMapping(value = "/demo/testTcc", method = GET)
+    public String  tccSave();
+
+
+
 }
