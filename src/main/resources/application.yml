@@ -30,7 +30,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:8090/uaa/token_keys
+          jwk-set-uri: http://www.xg.com:9000/oauth2/jwks
 
 server:
   port: 8073

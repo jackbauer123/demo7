@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,11 +28,20 @@ public class RequestController {
     }
 
 
-    @RequestMapping(value = "/customer/save", method = RequestMethod.GET)
+    @RequestMapping(value = "/save", method = RequestMethod.GET)
     public String save( @RequestHeader Map<String,String> map) {
         map.forEach((k,v)-> System.out.println(k + "  " + v));
         handleService.saveAll();
         return "save all success.";
+    }
+
+
+    @RequestMapping(value = "/customer/encode/{password}", method = RequestMethod.GET)
+    public String encoding(@PathVariable(name="password") String password){
+        System.out.println("password:" + password);
+        PasswordEncoder passwordEncoder =
+                PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return passwordEncoder.encode(password);
     }
 
 //    @GetMapping("/resource")
